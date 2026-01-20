@@ -52,14 +52,14 @@
         @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         .animate-spin-slow { animation: spin-slow 12s linear infinite; }
 
-        /* Transitions fluides pour favoris */
-        .fade-enter-active, .fade-leave-active { transition: all 0.3s ease; }
-        .fade-enter-from, .fade-leave-to { opacity: 0; transform: translateX(20px); }
+        /* Transitions fluides */
+        .fade-enter-active, .fade-leave-active { transition: opacity 0.2s ease; }
+        .fade-enter-from, .fade-leave-to { opacity: 0; }
 
         [x-cloak] { display: none !important; }
     </style>
 </head>
-<body class="bg-wander-base text-wander-dark antialiased selection:bg-wander-gold selection:text-wander-dark pb-28" 
+<body class="bg-wander-base text-wander-dark antialiased selection:bg-wander-gold selection:text-wander-dark pb-28 overflow-x-hidden w-full" 
       x-data="app()" 
       x-init="initTimers()"
       @scroll.window="scrolled = (window.pageYOffset > 10)">
@@ -301,6 +301,7 @@
                                 <button @click.stop="toggleLike(item)" class="absolute top-1.5 right-1.5 bg-white rounded-full p-1 shadow-sm active:scale-90 transition-transform z-10">
                                     <svg class="w-3.5 h-3.5 text-red-500 fill-current" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" /></svg>
                                 </button>
+                                <div x-show="item.timerDisplay" class="absolute bottom-0 left-0 right-0 bg-wander-dark/80 text-white text-[9px] text-center py-0.5 rounded-b-xl backdrop-blur-sm font-sans"><span x-text="item.timerDisplay"></span></div>
                             </div>
                             <div class="flex-1 flex flex-col justify-between py-0.5">
                                 <div>
@@ -536,7 +537,6 @@
                     {id: 'account', label: 'Compte', icon: '<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>'}
                 ],
 
-                // --- DATA IMAGES (Identique V8) ---
                 cityImages: {
                     'Paris': 'https://images.unsplash.com/photo-1550340499-a6c60fc8287c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
                     'Marseille': 'https://images.unsplash.com/photo-1566838217578-1903568a76d9?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWFyc2VpbGxlfGVufDB8fDB8fHww',
