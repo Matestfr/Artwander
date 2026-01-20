@@ -567,7 +567,7 @@
                         <div class="flex items-center gap-3"><span class="text-xl">❓</span><span class="text-sm font-bold text-wander-dark">Aide & Support</span></div><span class="text-slate-300">→</span>
                     </button>
                 </div>
-                <div class="mt-8 text-center"><button class="text-xs text-red-500 font-bold opacity-60 hover:opacity-100">Se déconnecter</button><div class="text-[9px] text-slate-300 mt-2">v46.0.0 ArtWander</div></div>
+                <div class="mt-8 text-center"><button class="text-xs text-red-500 font-bold opacity-60 hover:opacity-100">Se déconnecter</button><div class="text-[9px] text-slate-300 mt-2">v48.0.0 ArtWander</div></div>
             </div>
         </div>
 
@@ -593,9 +593,6 @@
             <template x-if="activeTicket?.imageSrc">
                  <div class="relative w-full aspect-[2/3] rounded-xl overflow-hidden shadow-lg border border-wander-light mb-4">
                      <img :src="activeTicket.imageSrc" class="w-full h-full object-cover">
-                     <div class="absolute bottom-0 inset-x-0 bg-black/60 text-white text-[10px] p-2 text-center">
-                         Ceci est une simulation. En prod, l'image réelle s'affiche ici.
-                     </div>
                  </div>
             </template>
             <template x-if="!activeTicket?.imageSrc">
@@ -631,20 +628,86 @@
                         validUntil: '14 Fév 2026',
                         expanded: false,
                         tickets: [
-                            { title: "Cyrano de Bergerac", loc: "Comédie Française", icon: "🎭", peopleText: "Billet Duo", type: "culture", imageSrc: "./images/Saint.Valentin1.png" },
-                            { title: "La Traviata de Verdi", loc: "Opéra National", icon: "🎻", peopleText: "Billet Duo", type: "musique", imageSrc: "./images/Saint.Valentin2.png" },
-                            { title: "In The Mood For Love", loc: "Cinéma MK2", icon: "🎬", peopleText: "Billet Duo", type: "cinema", imageSrc: "./images/Saint.Valentin3.png" },
-                            { title: "Poèmes de Pablo Neruda", loc: "Retrait Fnac", icon: "📖", peopleText: "Livre inclus", type: "litterature", imageSrc: "./images/Saint.Valentin4.png" }
+                            { 
+                                title: "Cyrano de Bergerac", 
+                                loc: "Comédie Française", 
+                                icon: "🎭", 
+                                peopleText: "Billet Duo", 
+                                type: "culture", 
+                                imageSrc: "./images/Saint.Valentin1.png" 
+                            }, 
+                            { 
+                                title: "La Traviata de Verdi", 
+                                loc: "Opéra National", 
+                                icon: "🎻", 
+                                peopleText: "Billet Duo", 
+                                type: "musique", 
+                                imageSrc: "./images/Saint.Valentin2.png" 
+                            }, 
+                            { 
+                                title: "In The Mood For Love", 
+                                loc: "Cinéma MK2", 
+                                icon: "🎬", 
+                                peopleText: "Billet Duo", 
+                                type: "cinema", 
+                                // Attention ici il y a un espace dans votre nom de fichier
+                                imageSrc: "./images/Saint Valentin.3.png" 
+                            }, 
+                            { 
+                                title: "Poèmes de Pablo Neruda", 
+                                loc: "Retrait Fnac", 
+                                icon: "📖", 
+                                peopleText: "Livre inclus", 
+                                type: "litterature", 
+                                imageSrc: "./images/Saint.Valentin4.png" 
+                            } 
                         ]
                     }
                 ],
 
                 // 2. TICKETS ABONNEMENT (Endless Summer - Vos images locales)
                 myBoxTickets: [
-                      { id: 1, title: 'Café Céramique', loc: 'Papotterie (11e)', month: 'JAN', day: '12', type: 'confort', transferred: false, imageSrc: "./images/Endless.summer.1.png" },
-                      { id: 2, title: 'Deep Dimanche', loc: 'Open Air', month: 'JAN', day: '18', type: 'decouverte', transferred: false, imageSrc: "./images/Endless.summer.4.png" },
-                      { id: 3, title: 'La Piscine (Film)', loc: 'Projection Etoiles', month: 'JAN', day: '24', type: 'confort', transferred: false, imageSrc: "./images/Endless.summer.2.png" },
-                      { id: 4, title: 'Bonjour Tristesse', loc: 'Retrait Fnac', month: 'JAN', day: '29', type: 'culture', transferred: false, imageSrc: "./images/Endless.summer.3.png" }
+                      { 
+                          id: 1, 
+                          title: 'Café Céramique', 
+                          loc: 'Papotterie (11e)', 
+                          month: 'JAN', 
+                          day: '12', 
+                          type: 'confort', 
+                          transferred: false, 
+                          imageSrc: "./images/Endless.summer.1.png" 
+                      },
+                      { 
+                          id: 2, 
+                          title: 'Deep Dimanche', 
+                          loc: 'Open Air', 
+                          month: 'JAN', 
+                          day: '18', 
+                          type: 'decouverte', 
+                          transferred: false, 
+                          imageSrc: "./images/Endless.summer.4.png" 
+                      },
+                      { 
+                          id: 3, 
+                          title: 'La Piscine (Film)', 
+                          loc: 'Projection Etoiles', 
+                          month: 'JAN', 
+                          day: '24', 
+                          type: 'confort', 
+                          transferred: false, 
+                          imageSrc: "./images/Endless.summer.2.png" 
+                      },
+                      { 
+                          id: 4, 
+                          title: 'Bonjour Tristesse', 
+                          loc: 'Retrait Fnac', 
+                          month: 'JAN', 
+                          day: '29', 
+                          type: 'culture', 
+                          transferred: false, 
+                          // Attention ici il y a un espace dans votre nom de fichier
+                          imageSrc: "./images/Endless summer.3.png" 
+                      }
                 ],
 
                 // 40+ ACTIVITES (BDD ÉTENDUE)
@@ -801,35 +864,32 @@
                     }, 1000);
                 },
                 
-                // FONCTION FAVORIS CORRIGÉE (CLE UNIQUE)
+                // FONCTION FAVORIS CORRIGÉE
                 getFavorites() {
-                    // Les UIDs empêchent les doublons techniques
+                    if (this.refreshKey >= 0) {} 
+                    // On utilise "unshift" pour l'ajout donc les created boxes sont dans oneShotBoxes
+                    // On filtre tous les éléments likés de toutes les sources
                     const oneshots = this.oneShotBoxes.filter(i => i.liked).map(i => ({...i, uid: 'os-' + i.id}));
                     const tops = this.top10.filter(i => i.liked).map(i => ({...i, uid: 'top-' + i.id}));
                     const partners = this.partnerBoxes.filter(i => i.liked).map(i => ({...i, uid: 'part-' + i.id}));
-                    
-                    // Fusion sans doublons visuels
                     return [...oneshots, ...tops, ...partners];
                 },
                 
-                toggleLike(item) { 
-                    // Mise à jour de l'état "liked" sur l'objet original
-                    // On doit retrouver l'objet dans sa liste d'origine
-                    let targetList = this.oneShotBoxes;
-                    if(item.uid && item.uid.startsWith('top')) targetList = this.top10;
-                    if(item.uid && item.uid.startsWith('part')) targetList = this.partnerBoxes;
+                toggleLike(item) {
+                    let targetList;
                     
+                    // Identification de la liste source
+                    if (item.uid && item.uid.startsWith('top')) targetList = this.top10;
+                    else if (item.uid && item.uid.startsWith('part')) targetList = this.partnerBoxes;
+                    else targetList = this.oneShotBoxes; // Par défaut (et pour les created boxes)
+
                     const realItem = targetList.find(i => i.id === item.id);
-                    if(realItem) {
+                    if (realItem) {
                         realItem.liked = !realItem.liked;
-                        // Forcer le rafraîchissement
-                        this.refreshKey++; 
-                    } else {
-                        // Cas fallback (ex: clic direct hors liste favoris)
-                        item.liked = !item.liked;
-                        this.refreshKey++;
+                        this.refreshKey++; // Force le rafraîchissement
                     }
                 },
+
                 openQr(ticket) { this.activeTicket = ticket; this.currentQrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${ticket.id}`; this.qrOpen = true; },
                 closeQr() { this.qrOpen = false; },
                 
@@ -872,16 +932,11 @@
                     setTimeout(() => { 
                         let generatedTickets = [];
                         
-                        // LOGIQUE 2+2 ou ALEATOIRE
                         if (this.selectedPath === 'random') {
-                             // Random 4 items
                              generatedTickets = this.allActivities.sort(() => 0.5 - Math.random()).slice(0, 4);
                         } else {
-                            // 2 Confort + 2 Découverte (Liés au mood)
                             const comforts = this.allActivities.filter(a => a.type === 'comfort' && a.mood === this.selectedPath);
                             const discoveries = this.allActivities.filter(a => a.type === 'discovery' && a.mood === this.selectedPath);
-                            
-                            // Fallback si pas assez d'activités spécifiques
                             const extraComforts = this.allActivities.filter(a => a.type === 'comfort');
                             const extraDiscoveries = this.allActivities.filter(a => a.type === 'discovery');
 
@@ -891,7 +946,6 @@
                             ];
                         }
                         
-                        // Calcul du texte "Valable pour X personnes"
                         let peopleCount = 1;
                         let peopleText = "Billet valable 1 personne";
                         
@@ -899,10 +953,8 @@
                         else if (this.config.company === 'tribu') { peopleCount = 4; peopleText = "Billet valable 4 personnes"; }
                         else if (this.config.company === 'groupe') { peopleText = "Session Collective (1 pers)"; }
 
-                        // On injecte ce texte dans les tickets
                         generatedTickets = generatedTickets.map(t => ({...t, peopleText: peopleText}));
 
-                        // CALCUL DE LA DATE DE VALIDITÉ (1 AN)
                         const today = new Date();
                         const validityDate = new Date(today.setFullYear(today.getFullYear() + 1));
                         const dateString = validityDate.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' });
@@ -932,22 +984,24 @@
                         expanded: false // Pour l'accordéon
                     });
                     
-                    // AJOUT AUX FAVORIS SI LIKÉ (CORRECTION V36)
+                    // AJOUT AUX FAVORIS (CORRIGÉ : UNSHIFT dans oneShotBoxes pour détection auto)
                     if(this.previewBoxLiked) {
-                        this.oneShotBoxes.unshift({
-                            id: Date.now() + 1, // ID unique pour éviter conflit
+                        const newBox = {
+                            id: Date.now(), // ID Unique
                             title: this.previewBox.title,
                             subtitle: this.previewBox.desc,
                             price: "Acheté",
                             rating: 5.0,
                             liked: true,
                             image: 'https://images.unsplash.com/photo-1513530534585-c7b1394c6d51?w=400&q=60',
-                            timerDisplay: '' // Propriété vide pour éviter erreur JS
-                        });
-                        this.refreshKey++; // Force refresh liste favoris
+                            timerDisplay: '' 
+                        };
+                        // L'ajout dans cette liste déclenche automatiquement l'apparition dans getFavorites()
+                        this.oneShotBoxes.unshift(newBox);
+                        this.refreshKey++;
                     }
                     
-                    this.resetConfig(); // Reset propre pour revenir étape 1
+                    this.resetConfig(); 
                     this.tab = 'box'; 
                 },
                 
