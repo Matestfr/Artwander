@@ -23,9 +23,9 @@
                     colors: {
                         wander: {
                             base: '#FDFBF7', // Beige Crème
-                            dark: '#001B55', // Bleu Nuit
+                            dark: '#001B55', // Bleu Nuit Profond
                             gold: '#FFC857', // Jaune Soleil
-                            light: '#EBE5D9', // Beige plus foncé pour bordures
+                            light: '#EBE5D9', // Beige foncé (bordures)
                         }
                     },
                     boxShadow: {
@@ -44,16 +44,17 @@
         .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
         .swiper-pagination-bullet-active { background-color: #001B55 !important; }
         
+        /* Header semi-transparent beige */
         .header-scrolled { background: rgba(253, 251, 247, 0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0,0,0,0.05); }
         .header-transparent { background: transparent; border-bottom: 1px solid transparent; }
 
         .ticket-notch { position: absolute; width: 20px; height: 20px; background-color: #FDFBF7; border-radius: 50%; z-index: 10; }
         
+        /* Animation Soleil */
         @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         .animate-spin-slow { animation: spin-slow 12s linear infinite; }
-        .animate-pulse-slow { animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
 
-        /* Transitions fluides */
+        /* Transitions */
         .fade-enter-active, .fade-leave-active { transition: opacity 0.2s ease; }
         .fade-enter-from, .fade-leave-to { opacity: 0; }
 
@@ -70,6 +71,7 @@
             :class="scrolled ? 'header-scrolled' : 'header-transparent'">
         <div class="flex items-center gap-3">
             <div class="text-wander-dark font-serif font-black text-xl tracking-widest uppercase">ArtWander</div>
+            
             <div class="relative" x-data="{ open: false }">
                 <button @click="open = !open" class="bg-white/50 border border-wander-dark/10 backdrop-blur text-wander-dark hover:bg-white transition-colors text-xs pl-3 pr-2 py-1.5 rounded-full font-bold flex items-center gap-1 active:scale-95 duration-200 font-sans">
                     <span x-text="currentCity">Paris</span>
@@ -184,7 +186,10 @@
                                 <div class="relative rounded-t-full rounded-b-[2rem] overflow-hidden h-64 shadow-md group border-2 border-white">
                                     <img :src="item.image" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
                                     <div class="absolute inset-0 bg-gradient-to-t from-wander-dark via-transparent to-transparent opacity-90"></div>
-                                    <div class="absolute -bottom-4 -left-1 text-8xl font-serif font-black text-transparent leading-none z-10" style="-webkit-text-stroke: 1px #FFC857; opacity: 0.8;" x-text="index + 1"></div>
+                                    
+                                    <div class="absolute -bottom-4 -left-1 text-8xl font-serif font-black text-transparent leading-none z-10" 
+                                         style="-webkit-text-stroke: 1px #FFC857; opacity: 0.8;" x-text="index + 1"></div>
+                                    
                                     <button @click.stop="toggleLike(item)" class="absolute top-3 right-3 z-20 p-2 rounded-full bg-wander-dark/30 backdrop-blur-md active:scale-90 transition-transform">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-colors duration-300" :class="item.liked ? 'text-red-500 fill-red-500' : 'text-white'" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
                                     </button>
@@ -223,6 +228,7 @@
                         </template>
                     </div>
                 </div>
+
                 <div class="mb-8">
                     <h3 class="text-sm font-bold text-wander-dark mb-4 px-1 font-serif">Parcourir par univers</h3>
                     <div class="grid grid-cols-2 gap-3">
@@ -231,6 +237,25 @@
                                 <div class="w-12 h-12 rounded-lg overflow-hidden shrink-0 shadow-sm"><img :src="cat.image" class="w-full h-full object-cover"></div>
                                 <span class="font-bold text-wander-dark text-xs leading-tight font-serif" x-text="cat.name"></span>
                             </button>
+                        </template>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-sm font-bold text-wander-dark mb-3 px-1 font-serif">Les Box Partenaires</h3>
+                    <div class="space-y-3">
+                        <template x-for="box in partnerBoxes" :key="box.id">
+                            <div class="flex gap-3 bg-white p-3 rounded-xl shadow-sm border border-wander-light">
+                                <img :src="box.image" class="w-20 h-20 rounded-lg object-cover bg-wander-base">
+                                <div class="flex-1 flex flex-col justify-center">
+                                    <span class="text-[10px] text-slate-400 uppercase tracking-wide font-medium font-sans" x-text="box.partner"></span>
+                                    <h4 class="font-bold text-wander-dark text-sm mt-0.5 font-serif" x-text="box.title"></h4>
+                                    <div class="flex items-center gap-2 mt-2">
+                                        <span class="text-[10px] bg-wander-base text-wander-dark px-1.5 py-0.5 rounded font-medium font-sans" x-text="box.type"></span>
+                                        <span class="text-[10px] text-wander-gold font-bold font-sans">★ 4.9</span>
+                                    </div>
+                                </div>
+                            </div>
                         </template>
                     </div>
                 </div>
@@ -247,10 +272,25 @@
                 </div>
             </div>
             <div class="px-5 space-y-4">
+                
                 <div x-show="favFilter !== 'inactive' && getFavorites().length === 0" class="flex flex-col items-center justify-center py-20 text-center font-sans">
                     <div class="w-16 h-16 bg-wander-light rounded-full flex items-center justify-center mb-4 text-3xl opacity-50">💔</div>
                     <p class="text-wander-dark font-bold">Aucun coup de cœur</p>
                     <p class="text-slate-400 text-sm mt-1">Explorez pour ajouter des favoris.</p>
+                </div>
+
+                <div x-show="favFilter === 'inactive'" class="flex gap-4 border-b border-wander-light pb-4 grayscale opacity-70">
+                    <div class="relative w-24 h-24 shrink-0">
+                        <img src="https://images.unsplash.com/photo-1544212415-b269f18bf7ed?w=900&auto=format&fit=crop&q=60" class="w-full h-full object-cover rounded-xl bg-slate-200">
+                        <div class="absolute inset-0 bg-black/10 rounded-xl flex items-center justify-center"><span class="bg-black text-white text-[10px] font-bold px-2 py-0.5 rounded font-sans">Terminé</span></div>
+                    </div>
+                    <div class="flex-1 flex flex-col justify-between py-0.5">
+                        <div>
+                            <div class="text-[10px] text-slate-500 font-medium uppercase font-sans">Box Hiver</div>
+                            <h3 class="font-bold text-slate-600 text-sm leading-tight mt-0.5 font-serif">Noël Bohème</h3>
+                            <div class="text-xs text-slate-400 mt-1 font-sans">Expiré le 25 Déc.</div>
+                        </div>
+                    </div>
                 </div>
 
                 <template x-for="item in getFavorites()" :key="item.uid">
@@ -260,6 +300,7 @@
                             <button @click.stop="toggleLike(item)" class="absolute top-1.5 right-1.5 bg-white rounded-full p-1 shadow-sm active:scale-90 transition-transform z-10">
                                 <svg class="w-3.5 h-3.5 text-red-500 fill-current" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" /></svg>
                             </button>
+                            <div x-show="item.timerDisplay" class="absolute bottom-0 left-0 right-0 bg-wander-dark/80 text-white text-[9px] text-center py-0.5 rounded-b-xl backdrop-blur-sm font-sans"><span x-text="item.timerDisplay"></span></div>
                         </div>
                         <div class="flex-1 flex flex-col justify-between py-0.5">
                             <div>
@@ -287,6 +328,7 @@
                 <div class="w-full bg-white/20 rounded-full h-1.5 mb-2"><div class="bg-wander-gold h-1.5 rounded-full w-1/4"></div></div>
                 <p class="text-right text-[10px] opacity-70 font-sans">1/4 expériences réalisées</p>
             </div>
+
             <div class="space-y-4 mb-8">
                 <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wide font-sans">Vos Billets</h3>
                 <template x-for="ticket in myBoxTickets" :key="ticket.id">
@@ -359,12 +401,37 @@
                     </div>
                 </div>
             </div>
+
             <div class="px-5 py-6 space-y-3 font-sans">
                 <button class="w-full bg-white p-4 rounded-xl flex items-center gap-4 shadow-sm border border-wander-light group active:scale-95 transition-transform">
                     <div class="bg-wander-base p-3 rounded-xl text-wander-dark"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" /></svg></div>
                     <div class="text-left"><div class="font-bold text-wander-dark font-serif">Parrainage</div><div class="text-xs text-slate-400">Invitez des amis, gagnez des box</div></div>
                 </button>
-                <div class="mt-8 text-center text-xs text-slate-400">Se déconnecter</div>
+                <button class="w-full bg-white p-4 rounded-xl flex items-center gap-4 shadow-sm border border-wander-light group active:scale-95 transition-transform">
+                    <div class="bg-wander-base p-3 rounded-xl text-wander-dark"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" /></svg></div>
+                    <div class="text-left"><div class="font-bold text-wander-dark font-serif">Codes Promo</div><div class="text-xs text-slate-400">Ajouter un code de réduction</div></div>
+                </button>
+                <button class="w-full bg-white p-4 rounded-xl flex items-center gap-4 shadow-sm border border-wander-light group active:scale-95 transition-transform">
+                    <div class="bg-wander-base p-3 rounded-xl text-wander-dark"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg></div>
+                    <div class="text-left"><div class="font-bold text-wander-dark font-serif">Club Culture</div><div class="text-xs text-slate-400">Niveau : Passionnée (450 pts)</div></div>
+                </button>
+            </div>
+            
+            <div class="px-5 pb-32 font-sans">
+                <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wide mb-4 mt-2">Personnel</h3>
+                <div class="space-y-2">
+                    <button class="w-full bg-white p-4 rounded-xl shadow-sm flex items-center justify-between group active:scale-95 transition-transform border border-wander-light">
+                        <div class="flex items-center gap-3"><span class="text-xl">💳</span><span class="text-sm font-bold text-wander-dark">Gérer l'abonnement</span></div><span class="text-slate-300">→</span>
+                    </button>
+                    <button class="w-full bg-white p-4 rounded-xl shadow-sm flex items-center justify-between group active:scale-95 transition-transform border border-wander-light">
+                        <div class="flex items-center gap-3"><span class="text-xl">📍</span><span class="text-sm font-bold text-wander-dark">Ma Ville</span></div>
+                        <div class="flex items-center gap-2"><span class="text-xs text-slate-400" x-text="currentCity"></span><span class="text-slate-300">→</span></div>
+                    </button>
+                    <button class="w-full bg-white p-4 rounded-xl shadow-sm flex items-center justify-between group active:scale-95 transition-transform border border-wander-light">
+                        <div class="flex items-center gap-3"><span class="text-xl">❓</span><span class="text-sm font-bold text-wander-dark">Aide & Support</span></div><span class="text-slate-300">→</span>
+                    </button>
+                </div>
+                <div class="mt-8 text-center"><button class="text-xs text-red-500 font-bold opacity-60 hover:opacity-100">Se déconnecter</button><div class="text-[9px] text-slate-300 mt-2">v3.0.0 ArtWander</div></div>
             </div>
         </div>
 
@@ -396,20 +463,48 @@
         </div>
         <div class="w-full bg-wander-light h-1"><div class="bg-wander-dark h-1 transition-all duration-300" :style="'width:' + (step/6)*100 + '%'"></div></div>
         <div class="flex-1 flex flex-col p-6 overflow-y-auto font-sans">
-             <div x-show="step===1">
+             <div x-show="step===1" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-x-10">
                 <h2 class="text-2xl font-bold text-wander-dark mb-2 font-serif">Votre humeur ?</h2>
                 <div class="space-y-3 mt-6">
                     <button @click="step++" class="w-full p-5 border border-wander-light bg-white rounded-2xl flex items-center gap-4 hover:border-wander-dark transition-all text-left">
-                        <span class="text-3xl">☕</span><div><div class="font-bold text-wander-dark">Cocooning</div></div>
+                        <span class="text-3xl">☕</span><div><div class="font-bold text-wander-dark">Cocooning</div><div class="text-xs text-slate-500">Musées, calme...</div></div>
                     </button>
                     <button @click="step++" class="w-full p-5 border border-wander-light bg-white rounded-2xl flex items-center gap-4 hover:border-wander-dark transition-all text-left">
-                        <span class="text-3xl">⚡</span><div><div class="font-bold text-wander-dark">Aventure</div></div>
+                        <span class="text-3xl">⚡</span><div><div class="font-bold text-wander-dark">Aventure</div><div class="text-xs text-slate-500">Insolite, action...</div></div>
                     </button>
                 </div>
              </div>
-             <div x-show="step===6" class="flex-1 flex flex-col items-center justify-center text-center">
-                <div class="text-6xl animate-spin-slow mb-4">☀</div>
-                <h3 class="text-xl font-bold text-wander-dark font-serif">Création en cours...</h3>
+             <div x-show="step===2" style="display: none;" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-x-10">
+                <h2 class="text-2xl font-bold text-wander-dark mb-2 font-serif">Avec qui ?</h2>
+                <div class="grid grid-cols-2 gap-3 mt-4">
+                    <button @click="step++" class="p-6 border border-wander-light bg-white rounded-2xl hover:border-wander-dark transition-all"><span class="text-2xl">🧘</span><div class="font-bold text-sm mt-2">Solo</div></button>
+                    <button @click="step++" class="p-6 border border-wander-light bg-white rounded-2xl hover:border-wander-dark transition-all"><span class="text-2xl">💑</span><div class="font-bold text-sm mt-2">Duo</div></button>
+                </div>
+             </div>
+             <div x-show="step===3" style="display: none;" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-x-10">
+                <h2 class="text-2xl font-bold text-wander-dark mb-2 font-serif">Activité ?</h2>
+                 <div class="space-y-3 mt-4">
+                    <button @click="step++" class="w-full p-5 border border-wander-light bg-white rounded-2xl hover:border-wander-dark transition-all text-left"><span class="text-2xl mr-2">🎨</span> Manuel (Poterie...)</button>
+                    <button @click="step++" class="w-full p-5 border border-wander-light bg-white rounded-2xl hover:border-wander-dark transition-all text-left"><span class="text-2xl mr-2">👀</span> Visuel (Expo...)</button>
+                </div>
+             </div>
+             <div x-show="step===4" style="display: none;" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-x-10">
+                <h2 class="text-2xl font-bold text-wander-dark mb-2 font-serif">Quand ?</h2>
+                 <div class="space-y-3 mt-4">
+                    <button @click="step++" class="w-full p-4 border border-wander-light bg-white rounded-xl hover:border-wander-dark transition-all">Semaine (Soir)</button>
+                    <button @click="step++" class="w-full p-4 border border-wander-light bg-white rounded-xl hover:border-wander-dark transition-all">Week-end</button>
+                </div>
+             </div>
+             <div x-show="step===5" style="display: none;" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-x-10">
+                <h2 class="text-2xl font-bold text-wander-dark mb-2 font-serif">Thèmes</h2>
+                <div class="flex flex-wrap gap-2 mt-4">
+                    <template x-for="t in ['Art', 'Histoire', 'Food', 'Nature', 'Tech']"><button class="px-4 py-2 bg-white border border-wander-light rounded-full text-sm hover:border-wander-dark" x-text="t"></button></template>
+                </div>
+                <button @click="startGeneration()" class="w-full bg-wander-dark text-white font-bold py-4 rounded-xl mt-8 shadow-lg">Générer</button>
+             </div>
+             <div x-show="step===6" style="display: none;" class="flex-1 flex flex-col items-center justify-center text-center">
+                <div class="text-6xl animate-spin-slow mb-4 text-wander-gold">☀</div>
+                <h3 class="text-xl font-bold text-wander-dark font-serif">L'IA compose votre mois...</h3>
             </div>
         </div>
     </div>
@@ -417,8 +512,10 @@
     <div x-show="qrOpen" class="fixed inset-0 z-[60] bg-black/95 backdrop-blur-sm flex items-center justify-center p-5 font-sans" x-transition.opacity style="display: none;">
          <div class="bg-white rounded-3xl p-8 w-full max-w-sm text-center relative shadow-2xl" @click.outside="closeQr()">
             <button @click="closeQr()" class="absolute top-4 right-4 text-slate-400">✕</button>
-            <h3 class="text-xl font-bold text-slate-800 font-serif">Votre E-Billet</h3>
-            <img :src="currentQrUrl" class="w-48 h-48 object-contain mx-auto my-6">
+            <h3 class="text-xl font-bold text-slate-800 font-serif mb-2">Votre E-Billet</h3>
+            <p class="text-sm text-slate-500 mb-6" x-text="activeTicket?.title"></p>
+            <img :src="currentQrUrl" class="w-48 h-48 object-contain mx-auto my-6 border-2 border-wander-light p-2 rounded-xl">
+            <div class="text-xs text-wander-dark font-bold bg-wander-base py-2 rounded-full">Luminosité 100% requise</div>
         </div>
     </div>
 
@@ -453,7 +550,6 @@
                     'Lille': 'https://images.unsplash.com/photo-1723366646754-17722fefdf80?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bGlsbGV8ZW58MHwwfDB8fHwy'
                 },
 
-                // (Reste des data inchangées de V8 mais incluses)
                 popularSearches: ["Céramique", "Théâtre", "Solo Date", "Rencontre", "Concert", "Impro", "DIY", "Musée", "Duo", "Vin & Paint"],
                 categories: [
                     { name: 'Modelage', image: 'https://images.unsplash.com/photo-1493106641515-6b5631de4bb9?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cG90ZXJpZXxlbnwwfDB8MHx8fDI%3D' },
